@@ -1,0 +1,57 @@
+import = ["/home/shuv40/.cache/wal/colors-alacritty.toml"]
+live_config_reload = true
+
+
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[env]
+term = "alacritty"
+
+[font]
+size = 16
+
+[font.normal]
+family = "MesloLGS NF"
+style = "regular"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "J"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "K"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "ClearHistory"
+key = "Q"
+mods = "Control"
+
+[mouse]
+hide_when_typing = false
+
+[shell]
+program = "/bin/zsh"
+
+[window]
+dynamic_padding = true
+opacity = 0.9
+
+[window.padding]
+x = 5
+y = 5
