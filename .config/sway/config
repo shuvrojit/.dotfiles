@@ -16,7 +16,8 @@ set $right l
 # Your preferred terminal emulator
 set $term alacritty
 
-set $border rounded 1
+
+set $border rounded 4
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -36,9 +37,15 @@ gaps inner 3
 gaps outer 2
 smart_gaps off
 
+# sway fx
+shadows enable
+shadow_blur_radius 10
+corner_radius 4
+layer_effects "waybar" blur enable
+dim_inactive_colors.unfocused "#000000FF"
+
 
 output HDMI-A-1 resolution 1366x768 position 1366,0
-
 # custom
 
 # will start with floating window
