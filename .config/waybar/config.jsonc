@@ -114,7 +114,8 @@
   "backlight": {
     // "device": "acpi_video1",
     "format": "{icon}",
-    "format-icons": ["", "", "", "", "", "", "", "", ""]
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "tooltip-format": "{icon} {percent}%"
   },
   "battery": {
     "states": {
@@ -135,7 +136,7 @@
     "format-warning": "",
     "format-critical": "",
     // "format-full": "",
-    "format-icons": ["", "", "", "", ""]
+    "format-icons": ["", "", "", "", ""],
   },
   "battery#bat2": {
     "bat": "BAT2"
@@ -154,7 +155,8 @@
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
     // "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-wifi": "",
+    "interval": 1,
+    "format-wifi": " {bandwidthDownBytes}",
     "format-ethernet": "{ipaddr}/{cidr} ",
     "tooltip-format": "{ifname} via {gwaddr} ",
     "format-linked": "{ifname} (No IP) ",

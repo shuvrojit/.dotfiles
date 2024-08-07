@@ -202,7 +202,7 @@ client.unfocused        $color1      $background      $foreground  $color3 $back
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
+    # bindsym $mod+b splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
@@ -259,8 +259,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 # bindsym $mod+p exec grim screenshot.png
 
+
 bindsym $mod+p exec cd ~/Desktop/screenshots && grim "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
 bindsym $mod+Shift+p exec cd ~/Desktop/screenshots && grim -g "$(slurp)" "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
+
 
 #
 # Status Bar:
@@ -342,7 +344,13 @@ bindsym XF86MonBrightnessDown exec sudo light -U 5
 
 bar {
     swaybar_command waybar
+position top
+    hidden_state hide
+    mode hide
+    modifier Mod4
 }
+
+bindsym $mod+b bar mode toggle
 
 # include system wide rest of the configuration
 include /etc/sway/config.d/*
