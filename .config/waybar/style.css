@@ -1,0 +1,266 @@
+@import url("../../.cache/wal/colors-custom-gtk3.css");
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome,Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+window#waybar {
+    background-color: transparent;
+    border-bottom: none;
+    color: @foreground;
+    transition-property: background-color;
+    transition-duration: .5s;
+    opacity: 0.8;
+}
+
+window#waybar.hidden {
+    opacity: 0.5;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: 0;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
+    /* box-shadow: inset 0 -3px #ffffff; */
+}
+
+/* you can set a style on hover for any module like this */
+#pulseaudio:hover {
+    /* background-color: #a37800; */
+}
+
+#workspaces button {
+    padding: 4px 12px;
+    background-color: @color0;
+    color: @foreground;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+#workspaces button:hover {
+    /* background: rgba(0, 0, 0, 0.2); */
+    /* background: @color1; */
+    box-shadow: inset 0 -2px @color7;
+}
+
+#workspaces button.focused {
+    background-color: @color2;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 12px;
+    color: @foreground;
+    border-radius: 4px;
+    margin: 4px;
+    background-color:  @color1;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+font-size: 16px;
+
+    letter-spacing: 1px;
+}
+
+#battery {
+    /* color: #000000; */
+
+}
+
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+    /* background-color: #26A65B; */
+}
+
+@keyframes blink {
+    to {
+        /* background-color: #ffffff; */
+        color: #000000;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+    padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+    background-color: #f53c3c;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+    background-color: #2ecc71;
+    color: #000000;
+}
+
+label:focus {
+}
+
+#cpu {
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#memory {
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+#disk {
+}
+
+#backlight {
+
+    font-size: 20px;
+}
+
+#network {
+}
+
+#network.disconnected {
+    background-color: #f53c3c;
+}
+
+#pulseaudio {
+    /* background-color: #f1c40f; */
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#pulseaudio.muted {
+    /* background-color: #90b1b1; */
+    color: #2a5c45;
+    font-size: 16px;
+}
+
+#wireplumber {
+    /* background-color: #fff0f5; */
+    color: #000000;
+}
+
+#wireplumber.muted {
+    /* background-color: #f53c3c; */
+}
+
+#custom-media {
+    /* background-color: #66cc99; */
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+}
+
+#custom-media.custom-vlc {
+}
+
+
+
+#keyboard-state {
+    background: #97e1ad;
+    color: #000000;
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
