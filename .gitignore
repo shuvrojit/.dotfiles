@@ -3,3 +3,6 @@
 /.config/emacs/
 *#
 /.config/github-copilot/
+/.config/Code - OSS/
+/.config/dconf/
+/.config/pavucontrol.ini
