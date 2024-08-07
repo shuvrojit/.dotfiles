@@ -6,3 +6,7 @@
 /.config/Code - OSS/
 /.config/dconf/
 /.config/pavucontrol.ini
+/.config/.android/
+/.config/Google/
+/.config/activitywatch/
+/.config/mimeapps.list
