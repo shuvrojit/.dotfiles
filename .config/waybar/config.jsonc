@@ -1,6 +1,6 @@
 // -*- mode: jsonc -*-
 {
-  "layer": "top",
+  // "layer": "top",
   "position": "top",
   "height": 30,
   "spacing": 4, // Gaps between modules (4px)
@@ -9,10 +9,10 @@
     "custom/launcher",
     "sway/workspaces",
     "sway/mode",
-    "sway/scratchpad",
-    "custom/media"
+    "sway/scratchpad"
   ],
   // "modules-center": ["sway/window"],
+  "modules-center": ["custom/media"],
   "modules-right": [
     "pulseaudio",
     "network",
@@ -23,6 +23,8 @@
     "battery#bat2",
     "clock"
   ],
+
+
   "sway/workspaces": {
     // "disable-scroll": true,
     "all-outputs": true,
@@ -136,7 +138,7 @@
     "format-warning": "",
     "format-critical": "",
     // "format-full": "",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": ["", "", "", "", ""]
   },
   "battery#bat2": {
     "bat": "BAT2"
