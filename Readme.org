@@ -1,0 +1,9 @@
+* Software I use:
+- Arch linux
+- Emacs
+- Alacritty
+- Firefox-developer-edition
+
+
+** Tools:
+*WM*: SwayWM, Hyprland, Waybar, Pywal
