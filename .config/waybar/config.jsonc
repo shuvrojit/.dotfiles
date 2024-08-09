@@ -8,6 +8,7 @@
   "modules-left": [
     "custom/launcher",
     "sway/workspaces",
+    "hyprland/workspaces",
     "sway/mode",
     "sway/scratchpad"
   ],
@@ -23,6 +24,20 @@
     "battery#bat2",
     "clock"
   ],
+
+  "hyprland/workspaces": {
+"format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "urgent": "",
+      // "focused": "",
+      "default": ""
+
+  }},
 
 
   "sway/workspaces": {

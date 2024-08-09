@@ -71,9 +71,17 @@ button:hover {
     box-shadow: inset 0 -2px @color7;
 }
 
-#workspaces button.focused {
+/* #workspaces button.focused { */
+/*     background-color: @color2; */
+/* } */
+
+/* for hyprland */
+#workspaces button.active {
     background-color: @color2;
 }
+
+
+
 
 #workspaces button.urgent {
     background-color: #eb4d4b;
