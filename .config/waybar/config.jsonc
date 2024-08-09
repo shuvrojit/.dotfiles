@@ -115,10 +115,12 @@
   },
   "cpu": {
     "format": " {usage}",
-    "tooltip": false
+    "tooltip": false,
+    "on-click": "alacritty btop"
   },
   "memory": {
-    "format": " {}"
+    "format": " {}",
+    "on-click": "alacritty btop"
   },
   "temperature": {
     // "thermal-zone": 2,
@@ -128,7 +130,7 @@
     "format": "{temperatureC}°C {icon}",
     "format-icons": ["", "", ""]
   },
-  "backlight": {
+  "backlight":{
     // "device": "acpi_video1",
     "format": "{icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""],
@@ -148,7 +150,8 @@
     "format-charging": "",
     "format-plugged": "",
     // "format-plugged": "{capacity}% ",
-    "format-alt": "{time} {icon}",
+    // "format-alt": "{icon} {capacity}% {time}",
+    "format-alt": "{icon} {capacity}%",
     // "format-good": "", // An empty format will hide the module
     "format-warning": "",
     "format-critical": "",
