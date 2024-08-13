@@ -22,7 +22,8 @@ set $border rounded 4
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu pkill wofi || wofi --show drun 
 
 ### Output configuration
 #
@@ -51,6 +52,7 @@ output HDMI-A-1 resolution 1366x768 position 1366,0
 # will start with floating window
 for_window [class="(?i)mpv"] floating enable
 for_window [class="(?i)sxiv"] floating enable
+for_window [class="(?i)wofi"] floating enable
 
 # for_window [class="Firefox"] border pixel 0
 # for_window [class="alacritty"] border pixel 1
