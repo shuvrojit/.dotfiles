@@ -7,3 +7,6 @@
 
 ** Tools:
 *WM*: SwayWM, Hyprland, Waybar, Pywal
+*EBook*: Zathura
+*Image Viewer*: Sxiv
+*File manager*: lf
