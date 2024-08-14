@@ -1,11 +1,8 @@
-# lf settings
-# github.com/rafi/.config
-
 set shell zsh
 # set shellopts '-eu'
 # set ifs "\n"
 
-#set color256
+# set color256
 set icons
 #set hidden
 set incsearch
@@ -33,7 +30,10 @@ set info size
 # map <enter> open
 # map E &$OPENER $f
 # map oz $mimeopen --ask $f
-map O $mimeopen --ask-default $f
+map o $mimeopen --ask-default $f
+map pdf &zathura "$f" 
+map epub &zathura "$f" 
+
 
 # # general utilities
 # # ---
@@ -45,7 +45,7 @@ map D trash
 map . set hidden!
 
 map ; !rar a "${PWD##*/}".cbr *
-map e !emacs $f
+map e !emacsclient -t "$f"
 map bz !unzip "$f" 
 map br !unrar e "$f"
 
