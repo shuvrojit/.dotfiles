@@ -26,7 +26,7 @@
   ],
 
   "hyprland/workspaces": {
-"format": "{icon}",
+    "format": "{icon}",
     "format-icons": {
       "1": "",
       "2": "",
@@ -36,9 +36,8 @@
       "urgent": "",
       // "focused": "",
       "default": ""
-
-  }},
-
+    }
+  },
 
   "sway/workspaces": {
     // "disable-scroll": true,
@@ -116,11 +115,12 @@
   "cpu": {
     "format": " {usage}",
     "tooltip": false,
-    "on-click": "alacritty btop"
+    "on-click": "pkill btop || alacritty -e btop"
   },
   "memory": {
     "format": " {}",
-    "on-click": "alacritty btop"
+    "tooltip": false,
+    "on-click": "pkill btop || alacritty -e btop"
   },
   "temperature": {
     // "thermal-zone": 2,
@@ -130,7 +130,7 @@
     "format": "{temperatureC}°C {icon}",
     "format-icons": ["", "", ""]
   },
-  "backlight":{
+  "backlight": {
     // "device": "acpi_video1",
     "format": "{icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""],
