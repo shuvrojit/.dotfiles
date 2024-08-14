@@ -42,7 +42,7 @@ smart_gaps off
 shadows enable
 shadow_blur_radius 10
 corner_radius 4
-layer_effects "waybar" blur enable
+layer_effects "waybar" blur disable
 dim_inactive_colors.unfocused "#000000FF"
 
 
