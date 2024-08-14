@@ -397,6 +397,7 @@ position top
 
 bindsym $mod+b bar mode hide
 bindsym $mod+z exec sudo systemctl restart dhcpcd 
+bindsym $mod+e exec emacsclient -c
 
 # include system wide rest of the configuration
 include /etc/sway/config.d/*
