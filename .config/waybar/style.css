@@ -2,18 +2,17 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome,Roboto, Helvetica, Arial, sans-serif;
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
-
 
 window#waybar {
     background-color: transparent;
     border-bottom: none;
     color: @foreground;
     transition-property: background-color;
-    transition-duration: .5s;
-    opacity: 0.8;
+    transition-duration: 0.5s;
+    opacity: 0.9;
 }
 
 window#waybar.hidden {
@@ -30,7 +29,7 @@ window#waybar.solo {
 */
 
 window#waybar.termite {
-    background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 window#waybar.chromium {
@@ -80,15 +79,12 @@ button:hover {
     background-color: @color2;
 }
 
-
-
-
 #workspaces button.urgent {
     background-color: #eb4d4b;
 }
 
 #mode {
-    background-color: #64727D;
+    background-color: #64727d;
     box-shadow: inset 0 -3px #ffffff;
 }
 
@@ -113,7 +109,7 @@ button:hover {
     color: @foreground;
     border-radius: 4px;
     margin: 4px;
-    background-color:  @color1;
+    background-color: @color1;
 }
 
 #window,
@@ -132,14 +128,13 @@ button:hover {
 }
 
 #clock {
-font-size: 16px;
+    font-size: 16px;
 
     letter-spacing: 1px;
 }
 
 #battery {
     /* color: #000000; */
-
 }
 
 /* @keyframes blink-charging { */
@@ -150,27 +145,21 @@ font-size: 16px;
 /*     } */
 /* } */
 
-
-#battery.charging, #battery.plugged {
+#battery.charging,
+#battery.plugged {
     color: @foreground;
-    background-color: #689F38;
+    background-color: #689f38;
     font-size: 24px;
-/* animation-name: blink-charging; */
-/*     animation-duration: 0.5s; */
-/*     animation-timing-function: steps(12); */
-/*     animation-iteration-count: infinite; */
-/*     animation-direction: alternate; */
-
-
+    /* animation-name: blink-charging; */
+    /*     animation-duration: 0.5s; */
+    /*     animation-timing-function: steps(12); */
+    /*     animation-iteration-count: infinite; */
+    /*     animation-direction: alternate; */
 }
-
-
-
 
 @keyframes blink {
     to {
-
-    background-color: #f53c3c;
+        background-color: #f53c3c;
     }
 }
 
@@ -223,7 +212,6 @@ label:focus {
 }
 
 #backlight {
-
     font-size: 24px;
 }
 
@@ -267,8 +255,6 @@ label:focus {
 #custom-media.custom-vlc {
 }
 
-
-
 #keyboard-state {
     background: #97e1ad;
     color: #000000;
@@ -290,6 +276,5 @@ label:focus {
 }
 
 #scratchpad.empty {
-	background-color: transparent;
+    background-color: transparent;
 }
-
