@@ -33,6 +33,9 @@ set info size
 map o $mimeopen --ask-default $f
 map pdf &zathura "$f" 
 map epub &zathura "$f" 
+map jpg &sxiv "$f"
+map jpeg &sxiv "$f"
+map svg &sxiv "$f"
 
 
 # # general utilities
