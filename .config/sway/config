@@ -305,7 +305,7 @@ input type:touchpad {
 # bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 # bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-exec_always gammastep -l 23:89
+exec gammastep -l 23:89
 exec aw-qt --no-gui
 
 set $nag exec swaynagmode
@@ -401,6 +401,9 @@ position top
 bindsym $mod+b bar mode hide
 bindsym $mod+z exec sudo systemctl restart dhcpcd 
 bindsym $mod+e exec emacsclient -c
+
+bindsym $mod+grave exec ~/.scripts/screen-recording.sh
+bindsym $mod+Shift+grave exec ~/.scripts/screen-recording.sh -g
 
 
 # include system wide rest of the configuration
