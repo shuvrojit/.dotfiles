@@ -226,8 +226,8 @@ label:focus {
 
 #pulseaudio {
     /* background-color: #f1c40f; */
-    font-size: 14px;
-    letter-spacing: 1px;
+    font-size: 16px;
+    letter-spacing: 2px;
 }
 
 #pulseaudio.muted {
@@ -282,7 +282,6 @@ label:focus {
 }
 
 #custom-recorder {
-    font-size: 18px;
-    margin: 2px 7px 0px 7px;
+    font-size: 16px;
     color: #f53c3c;
 }
