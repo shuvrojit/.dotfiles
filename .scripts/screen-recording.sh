@@ -11,7 +11,7 @@ if pgrep wl-screenrec > /dev/null; then
     notify-send "Recording Stopped."
   fi
 
-  pkill wl-screenrec
+  pkill --signal SIGINT wl-screenrec
   exit 0
 fi
 
