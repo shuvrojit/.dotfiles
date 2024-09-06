@@ -148,7 +148,7 @@
     "on-click": "if [ -z \"$(pgrep pavucontrol)\" ];then $( pavucontrol);else $(pkill -9 pavucontrol);fi"
   },
 "tray": {
-    "icon-size": 16,
+    "icon-size": 20,
     "spacing": 8
 }
 }
