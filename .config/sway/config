@@ -56,6 +56,7 @@ for_window [class="(?i)mpv"] floating enable
 for_window [class="(?i)sxiv"] floating enable
 for_window [class="(?i)wofi"] floating enable
 for_window [class="(?i)Emulator"] floating enable
+for_window [class="(?i)pomodoro-logger"] floating enable
 
 # for_window [class="Firefox"] border pixel 0
 # for_window [class="alacritty"] border pixel 1
