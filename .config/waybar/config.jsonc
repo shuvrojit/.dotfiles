@@ -14,6 +14,7 @@
   // "modules-center": ["custom/media", "custom/wl-screenrec"],
   "modules-right": [
     "custom/recorder",
+    "tray",
     "pulseaudio",
     "network",
     "cpu",
@@ -129,8 +130,9 @@
     // "scroll-step": 1, // %, can be a float
     // "format": "{format_source}  {icon} {volume}  ",
     "format": "{icon}  {format_source}",
-    "format-bluetooth": "{icon}  {format_source}",
-    "format-bluetooth-muted": "  {icon}  {format_source}",
+    "format-bluetooth": "  {icon}  {format_source}",
+    // "format-bluetooth": "  {format_source}",
+    "format-bluetooth-muted": "   {icon}  {format_source}",
     "format-muted": "  {format_source}",
     "format-source": "",
     "format-source-muted": "",
@@ -144,5 +146,9 @@
       "default": ["", "", ""]
     },
     "on-click": "if [ -z \"$(pgrep pavucontrol)\" ];then $( pavucontrol);else $(pkill -9 pavucontrol);fi"
-  }
+  },
+"tray": {
+    "icon-size": 16,
+    "spacing": 8
+}
 }
