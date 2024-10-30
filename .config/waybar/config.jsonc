@@ -77,11 +77,13 @@
     "format-alt": "{:%Y-%m-%d}"
   },
   "cpu": {
+    "interval": 1,
     "format": " {usage}",
     "tooltip": false,
     "on-click": "pkill btop || alacritty -e btop"
   },
   "memory": {
+    "interval": 1,
     "format": " {}",
     "tooltip": false,
     "on-click": "pkill btop || alacritty -e btop"
@@ -93,6 +95,7 @@
     "tooltip-format": "{icon} {percent}%"
   },
   "battery": {
+    "interval": 1,
     "states": {
       // "good": 95,
       "warning": 30,
@@ -147,8 +150,8 @@
     },
     "on-click": "if [ -z \"$(pgrep pavucontrol)\" ];then $( pavucontrol);else $(pkill -9 pavucontrol);fi"
   },
-"tray": {
+  "tray": {
     "icon-size": 20,
     "spacing": 8
-}
+  }
 }
