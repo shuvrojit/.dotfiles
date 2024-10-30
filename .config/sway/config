@@ -394,13 +394,12 @@ bindsym XF86MonBrightnessDown exec swayosd-client --brightness -10
 
 bar {
     swaybar_command waybar
-# position top
-    # hidden_state hide
-    # mode hide
-    hide modifier none
+    position top
+    hidden_state hide
+    mode hide
 }
 
-bindsym $mod+b bar mode toggle
+bindsym $mod+b exec killall -SIGUSR1 waybar || killall -SIGUSR2 waybar  
 bindsym $mod+z exec sudo systemctl restart dhcpcd 
 bindsym $mod+e exec emacsclient -c
 
