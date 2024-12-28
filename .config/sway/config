@@ -104,11 +104,11 @@ client.unfocused        $color1      $background      $foreground  $color3 $back
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
- exec swayidle -w \
-          # timeout 300 'swaylock -f -c 000000' \
-          timeout 300 'hyprlock' \
-          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-          before-sleep 'hyprlock'
+ # exec swayidle -w \
+ #          # timeout 300 'swaylock -f -c 000000' \
+ #          timeout 300 'hyprlock' \
+ #          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+ #          before-sleep 'hyprlock'
 
 
 ### Input configuration
@@ -402,7 +402,8 @@ bar {
 bindsym $mod+b exec killall -SIGUSR1 waybar || killall -SIGUSR2 waybar  
 bindsym $mod+z exec sudo systemctl restart dhcpcd 
 bindsym $mod+e exec emacsclient -c
-
+bindsym $mod+g exec gromit-mpx
+bindsym $mod+c exec wl-color-picker 
 bindsym $mod+grave exec ~/.scripts/screen-recording.sh
 bindsym $mod+Shift+grave exec ~/.scripts/screen-recording.sh -g
 
