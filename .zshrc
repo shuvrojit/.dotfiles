@@ -259,3 +259,5 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export XDG_CONFIG_HOME="$HOME/.config/"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
