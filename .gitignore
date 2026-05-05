@@ -1,52 +1,121 @@
-/.config/google-chrome/
-/.config/TabNine/
-/.config/emacs/
+# Editor backups, temporary files, and generated caches
 *#
+*~
+*.bak
+*.bak.*
+*.swp
+*.swo
+*.log
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Authentication, account data, and private connections
+/.config/.copilot/
+/.config/atlassian-cli/
+/.config/copilot-chat/
+/.config/eas-cli-nodejs/
+/.config/gh/hosts.yml
 /.config/github-copilot/
-/.config/Code - OSS/
-/.config/dconf/
-/.config/pavucontrol.ini
-/.config/.android/
-/.config/Google/
-/.config/activitywatch/
-/.config/mimeapps.list
-/.config/btop/
+/.config/hexchat/
+/.config/Outline Manager/
+/.config/rclone/
+/.config/rustdesk/
+/.config/shopify-cli-kit-nodejs/
+/.config/watcher/
+
+# Browser profiles and browsing data
 /.config/chromium/
-/.config/naev/
-/.config/neofetch/
-/.config/spotify/
-/.config/Android Open Source Project/
-/.config/Docker Desktop/
-/.config/clipse/
-/.config/Meltytech/
-/.config/QtProject.conf
-/.config/kritadisplayrc
-/.config/kritarc
-/.config/audacity/
-/.config/deluge/
-/.config/vlc/
-/.config/notion-app/
-/.config/Notion/
-/.config/Postman/
+/.config/google-chrome/
+/.config/google-chrome-canary/
+/.config/google-chrome-for-testing/
+/.config/mozilla/
+/.config/qutebrowser/
+
+# Application-managed profiles, caches, and local preferences
+/.config/activitywatch/
 /.config/asciinema/
+/.config/audacity/
+/.config/Audacity/
+/.config/audacity4/
+/.config/blender/
+/.config/btop/
 /.config/cava/
 /.config/cavasik/
-/.config/dolphinrc
+/.config/Claude/
+/.config/ClickUp/
+/.config/clipse/
+/.config/Code - OSS/
+/.config/deluge/
+/.config/discord/
+/.config/Docker Desktop/
+/.config/easyeffects/
+/.config/Electron/
+/.config/emacs/
 /.config/figma-linux/
+/.config/glava/
+/.config/Google/
+/.config/inkscape/
+/.config/JetBrains/
+/.config/libreoffice/
+/.config/Meltytech/
+/.config/Minecraft Linux Launcher/
+/.config/MongoDB Compass/
+/.config/naev/
+/.config/neofetch/
+/.config/noisetorch/
+/.config/Notion/
+/.config/notion-app/
+/.config/nwg-drawer/
+/.config/obs-studio/
+/.config/pomodoro-logger/
+/.config/Postman/
+/.config/schoolbook/
+/.config/Slack/
+/.config/spotify/
+/.config/TabNine/
+/.config/thefuck/
+/.config/uGet/
+/.config/vlc/
+
+# Tool installations, telemetry, and generated environment setup
+/.config/.android/
+/.config/.wrangler/
+/.config/Android Open Source Project/
+/.config/astro/
+/.config/configstore/
+/.config/create-next-app-nodejs/
+/.config/fish/conf.d/uv.env.fish
+/.config/go/
+/.config/gopls/
+/.config/nextjs-nodejs/
+/.config/nvm/
+/.config/turborepo/
+/.config/uv/
+/.config/yarn/
+
+# Desktop session state and machine-specific service enablement
+/.config/autostart/
+/.config/baloofileinformationrc
+/.config/dconf/
+/.config/dolphinrc
 /.config/filetypesrc
 /.config/gconf/
+/.config/gtk-2.0/
 /.config/kde.org/
+/.config/kdeglobals
+/.config/kdenlive-layoutsrc
+/.config/kdenliverc
 /.config/kiorc
+/.config/kritadisplayrc
+/.config/kritarc
+/.config/kwalletrc
 /.config/menus/
-/.config/nextjs-nodejs/
-/.config/noisetorch/
-/.config/nvm/
-/.config/nwg-drawer/
-/.config/pomodoro-logger/
-/.config/yarn/
-/.config/uGet/
-/.config/astro/
-/.config/go/
-/.config/inkscape/
+/.config/mimeapps.list
+/.config/pavucontrol.ini
 /.config/QtProject/
-/.config/glava/
+/.config/QtProject.conf
+/.config/session/
+/.config/systemd/user/*.wants/
+/.config/systemd/user/*.requires/
+/.config/trashrc

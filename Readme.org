@@ -10,3 +10,11 @@
 *EBook*: Zathura
 *Image Viewer*: Sxiv
 *File manager*: lf
+
+* Repository contents
+Track reusable configuration and scripts here. Application profiles, credentials,
+caches, backups, and desktop session state stay local through =.gitignore=.
+
+Review new configuration files before adding them, especially files that may
+contain account tokens. GitHub CLI preferences are tracked separately from
+=.config/gh/hosts.yml=, which remains ignored.
