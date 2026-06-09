@@ -1,0 +1,63 @@
+# Spotter configuration
+
+# Maximum number of rows shown for a query.
+max_results = 5
+system_tray = true
+
+# Backward-compatible result pane height. Prefer [ui].result_max_height.
+max_result_height = 420
+
+# Maximum number of filesystem entries indexed per configured root.
+max_indexed_items = 60000
+
+# Walk depth for filesystem roots.
+index_depth = 5
+
+# Include dotfiles and hidden folders while indexing.
+include_hidden = false
+
+# Desktop folders to index, relative to your home directory.
+index_dirs = [
+  "Desktop",
+  "Documents",
+  "Downloads",
+  "Pictures",
+  "Music",
+  "Videos",
+]
+
+[ui]
+# GTK4/Wayland compositors usually control exact window position.
+# Spotter defaults to a slightly inset top-left preference.
+position = "top-left"
+x = 96
+y = 72
+window_width = 720
+result_max_height = 420
+shell_margin = 0
+shell_padding = 12
+shell_radius = 18
+search_height = 54
+search_radius = 12
+search_font_size = 24
+result_margin_top = 12
+result_row_padding_y = 10
+result_row_padding_x = 14
+result_row_radius = 10
+title_font_size = 16
+subtitle_font_size = 12
+icon_font_size = 20
+
+[ui.colors]
+window_background = "transparent"
+# window_background = "black"
+shell_background = "rgba(28, 31, 36, 0.96)"
+shell_border = "rgba(255, 255, 255, 0.14)"
+search_background = "rgba(255, 255, 255, 0.1)"
+search_text = "#f5f7fa"
+results_background = "transparent"
+row_background = "transparent"
+row_selected_background = "rgba(108, 160, 255, 0.28)"
+icon = "#9fb7ff"
+title = "#f5f7fa"
+subtitle = "#aeb6c2"

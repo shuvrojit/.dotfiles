@@ -23,7 +23,9 @@ set $border rounded 4
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menud dmenu_path | dmenu | xargs swaymsg exec --
-set $menu pkill wofi || wofi --show drun 
+# set $menu pkill wofi || wofi --show drun
+#set $menu pkill spotter || spotter
+set $menu spotter --toggle
 
 
 ### Output configuration
