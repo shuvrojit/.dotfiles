@@ -230,7 +230,7 @@ client.unfocused        $color1      $background      $foreground  $color3 $back
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    #bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -408,6 +408,8 @@ bindsym $mod+g exec gromit-mpx
 bindsym $mod+c exec wl-color-picker 
 bindsym $mod+grave exec ~/.scripts/screen-recording.sh
 bindsym $mod+Shift+grave exec ~/.scripts/screen-recording.sh -g
+
+bindsym $mod+a exec dictatectl
 
 
 # include system wide rest of the configuration

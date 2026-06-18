@@ -104,6 +104,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #custom-recorder,
+#custom-dictate,
 #power-profiles-daemon,
 #mpd {
     padding: 0 12px;
@@ -284,4 +285,8 @@ label:focus {
 #custom-recorder {
     font-size: 16px;
     color: #f53c3c;
+}
+
+#custom-dictate {
+    min-width: 28px;
 }

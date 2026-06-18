@@ -14,6 +14,7 @@
   // "modules-center": ["custom/media", "custom/wl-screenrec"],
   "modules-right": [
     "custom/recorder",
+    "custom/dictate",
     "tray",
     "pulseaudio",
     "network",
@@ -60,6 +61,14 @@
     "interval": 1,
     "exec": "echo '{\"class\": \"recording\"}'",
     "exec-if": "pgrep wl-screenrec"
+  },
+  "custom/dictate": {
+    // "format": "",
+    "return-type": "json",
+    "interval": 1,
+    "exec": "\"$HOME/.local/bin/dictatectl\" waybar"
+    //"exec": "echo '{\"class\": \"dictate\"}'",
+    //"exec-if": "pgrep dictated"
   },
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
