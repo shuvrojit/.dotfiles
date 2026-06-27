@@ -216,8 +216,8 @@ client.unfocused        $color1      $background      $foreground  $color3 $back
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    # bindsym $mod+s layout stacking
+    #bindsym $mod+w layout tabbed
     # bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
@@ -268,10 +268,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 # bindsym $mod+p exec grim screenshot.png
-
-
-bindsym $mod+p exec cd ~/Desktop/screenshots && grim "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
-bindsym $mod+Shift+p exec cd ~/Desktop/screenshots && grim -g "$(slurp)" "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
 
 
 #
@@ -409,9 +405,15 @@ bindsym $mod+c exec wl-color-picker
 bindsym $mod+grave exec ~/.scripts/screen-recording.sh
 bindsym $mod+Shift+grave exec ~/.scripts/screen-recording.sh -g
 
+bindsym $mod+p exec cd ~/Desktop/screenshots && grim "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
+bindsym $mod+Shift+p exec cd ~/Desktop/screenshots && grim -g "$(slurp)" "$(date +"%Y_%m_%d_%I_%M_%p_%S").png" && popd
+bindsym $mod+i exec cd ~/Desktop/screenshots && grim - | tee ~/Desktop/screenshots/"$(date +"%Y_%m_%d_%I_%M_%p_%S").png" | wl-copy
+bindsym $mod+s exec cd ~/Desktop/screenshots && grim -g "$(slurp)" - | tee ~/Desktop/screenshots/"$(date +"%Y_%m_%d_%I_%M_%p_%S").png" | wl-copy
+#bindsym $mod+semicolon exec wl-paste
 bindsym $mod+a exec dictatectl
+bindsym $mod+w exec sh -c 'cd "$HOME/Desktop/llmshots"; file="$HOME/Desktop/screenshots/$(date +"%Y_%m_%d_%I_%M_%p_%S").png"; grim -g "$(slurp)" "$file" && printf "%s" "$file" | wl-copy'
+
 
 
 # include system wide rest of the configuration
 include /etc/sway/config.d/*
-

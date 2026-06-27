@@ -72,7 +72,8 @@ done
 # Run the wl-screenrec command with or without -g based on user input
 if [ "$use_geometry" == true ]; then
   # Run with -g and slurp
-    wl-screenrec --audio -f "$filepath" -g "$(slurp)" &
+    #wl-screenrec --audio -f "$filepath" -g "$(slurp)" &
+    wl-screenrec -f "$filepath" -g "$(slurp)" &
     pgrep wl-screenec && notify-send " Recording Started"
 
 else
