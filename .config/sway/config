@@ -59,6 +59,7 @@ for_window [class="(?i)sxiv"] floating enable
 for_window [class="(?i)wofi"] floating enable
 for_window [class="(?i)Emulator"] floating enable
 for_window [class="(?i)pomodoro-logger"] floating enable
+for_window [class="(?i)Notion"] floating enable
 
 # for_window [class="Firefox"] border pixel 0
 # for_window [class="alacritty"] border pixel 1
@@ -306,7 +307,7 @@ input type:touchpad {
 # bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 exec gammastep
-exec aw-qt --no-gui
+# exec aw-qt --no-gui
 
 set $nag exec swaynagmode
 mode "nag" {
