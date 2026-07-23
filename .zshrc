@@ -111,7 +111,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias c="clear"
 alias s="sudo"
-alias pi="sudo pacman -S"
+alias po="sudo pacman -S"
 alias pu="sudo pacman -Syyu"
 alias pr="sudo pacman -Rns"
 alias s="source"
@@ -252,12 +252,29 @@ alias cfe='emacs_to_file ~/'
 alias gc="git clone"
 alias gs="git status"
 
-export ANDROID_HOME=/opt/android-sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
-export XDG_CONFIG_HOME="$HOME/.config/"
+#export ANDROID_HOME=/opt/android-sdk
+#export PATH=$PATH:$ANDROID_HOME/emulator
+#export PATH=$PATH:$ANDROID_HOME/platform-tools
+#export PATH=$PATH:$ANDROID_HOME/tools
+#export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+#export PATH=$PATH:$HOME/.local/bin/
+#export XDG_CONFIG_HOME="$HOME/.config/"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
+# [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code-insiders --locate-shell-integration-path zsh)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#export SDKMAN_DIR="$HOME/.sdkman"
+#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+alias vim="nvim"
+alias n='alacritty --working-directory=$(pwd) & disown'
+
+#. "$HOME/.local/bin/env"
