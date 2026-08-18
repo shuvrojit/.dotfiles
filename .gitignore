@@ -119,3 +119,8 @@ __pycache__/
 /.config/systemd/user/*.wants/
 /.config/systemd/user/*.requires/
 /.config/trashrc
+
+# Private machine settings and local recovery data
+/.config/gammastep/
+/.config/hypr/local.conf
+/.local/
