@@ -1,20 +1,465 @@
-* Software I use:
-- Arch linux
-- Emacs
-- Alacritty
-- Firefox-developer-edition
+#+TITLE: Desktop dotfiles
+#+OPTIONS: toc:2
 
+An Arch Linux desktop built around Sway or Hyprland, Zsh, Alacritty, Emacs,
+Neovim, and Waybar. Reusable configuration belongs here; application databases,
+credentials, sessions, and machine-specific settings stay local.
 
-** Tools:
-*WM*: SwayWM, Hyprland, Waybar, Pywal
-*EBook*: Zathura
-*Image Viewer*: Sxiv
-*File manager*: lf
+* Configuration map
 
-* Repository contents
-Track reusable configuration and scripts here. Application profiles, credentials,
-caches, backups, and desktop session state stay local through =.gitignore=.
+Paths below are relative to the repository. Link selected files into the same
+paths under =~/= to use them.
 
-Review new configuration files before adding them, especially files that may
-contain account tokens. GitHub CLI preferences are tracked separately from
-=.config/gh/hosts.yml=, which remains ignored.
+| Tool | Configuration | What to change |
+|------+---------------+----------------|
+| Zsh, Oh My Zsh, Powerlevel10k | [[file:.zshrc][.zshrc]] | Plugins, aliases, runtime paths, shell startup |
+| Alacritty | [[file:.config/alacritty/alacritty.toml][alacritty.toml]] | Font, opacity, theme imports, keyboard bindings |
+| Sway | [[file:.config/sway/config][sway/config]] | Workspaces, launcher, screenshots, media keys |
+| Hyprland | [[file:.config/hypr/hyprland.conf][hyprland.conf]] | Layout, keybindings, autostart |
+| Hyprlock / Hyprpaper | [[file:.config/hypr/hyprlock.conf][hyprlock.conf]], [[file:.config/hypr/hyprpaper.conf][hyprpaper.conf]] | Lock-screen appearance, wallpaper and monitor |
+| Waybar | [[file:.config/waybar/config.jsonc][config.jsonc]], [[file:.config/waybar/style.css][style.css]] | Modules, commands, spacing and colors |
+| Mako / Dunst | [[file:.config/mako/config][mako/config]], [[file:.config/dunst/dunstrc][dunstrc]] | Notification appearance, timeout and urgency |
+| Neovim / AstroNvim | [[file:.config/nvim/][.config/nvim/]] | Lua plugin specifications, LSP, mappings and theme |
+| Zed | [[file:.config/zed/settings.json][settings.json]], [[file:.config/zed/keymap.json][keymap.json]] | Theme, font, editor settings and keybindings |
+| Emacs | =~/.config/emacs/= (local) | Init file, packages and server configuration |
+| lf | [[file:.config/lf/lfrc][lfrc]] | File openers, navigation and archive commands |
+| mpv | [[file:.config/mpv/mpv.conf][mpv.conf]] | Playback and subtitle options |
+| Spotter | [[file:.config/spotter/config.toml][spotter/config.toml]] | Search roots, indexing limits and launcher appearance |
+| Dictation | [[file:.config/dictate/config.toml][dictate/config.toml]] | Speech model; integration uses =dictatectl= |
+| Gromit-MPX | [[file:.config/gromit-mpx.ini][gromit-mpx.ini]] | Annotation opacity and startup hint |
+| Git / GitHub CLI | [[file:.config/git/ignore][git/ignore]], [[file:.config/gh/config.yml][gh/config.yml]] | Global exclusions, protocol and CLI aliases |
+| Interception / dual-function-keys | [[file:.dual-function-keys.yaml][.dual-function-keys.yaml]] | Tap/hold timing and key remaps |
+| PipeWire Pulse | [[file:.config/systemd/user/pipewire-pulse.service.d/override.conf][service override]] | LADSPA plugin search paths |
+| Screen recording | [[file:.scripts/screen-recording.sh][screen-recording.sh]] | Recording destination, selection and audio |
+| Pywal | =~/.cache/wal/= and local templates | Generated terminal, compositor and lock-screen colors |
+| Gammastep | =~/.config/gammastep/config.ini= (ignored) | Private location and night-light settings |
+
+* Set up the files
+
+Choose a compositor and install the tools you intend to use. These configurations
+reference the following dependency groups:
+
+| Group | Dependencies |
+|-------+--------------|
+| Desktop | Sway or Hyprland, Waybar, Hyprpaper/Hyprlock or Swaylock/Swayidle |
+| Launchers | Spotter, dmenu, Wofi, nwg-drawer |
+| Capture | grim, slurp, wl-clipboard, wl-screenrec, dmenu, notify-send |
+| Desktop helpers | SwayOSD, Gammastep, Gromit-MPX, wl-color-picker, Clipse |
+| Shell | Zsh, Oh My Zsh, Powerlevel10k, zsh-autosuggestions, zsh-syntax-highlighting |
+| Search and navigation | fzf, fd, tree, bat, the_silver_searcher (=ag=), thefuck, qman |
+| Editors and viewers | Emacs, Neovim, Zed, lf, mpv, Zathura, sxiv |
+| Fonts | MesloLGS NF, JetBrains Mono, Open Sans; Nerd Font glyphs for the bar |
+| Development | Git, GitHub CLI, Node/NVM, npm/Yarn, Bun, Python, Ruby, Go |
+| Media helper | Python GObject bindings and Playerctl introspection data |
+| Audio and keyboard | PipeWire Pulse, systemd user services, Interception Tools |
+
+Some commands are custom/local tools; their implementations are not included
+here. Install =spotter=, =dictated=, =dictatectl= and the desktop helpers before
+enabling their bindings. Package availability depends on the distribution and
+configured repositories.
+
+Run this in Bash after putting the checkout at =~/.dotfiles=. It links only
+tracked configuration and scripts. Existing destinations are reported for manual
+review; already-linked files are skipped.
+
+#+begin_src bash
+repo="$HOME/.dotfiles"
+cd "$repo" || exit 1
+git ls-files -z -- .config .scripts .zshrc .dual-function-keys.yaml |
+while IFS= read -r -d '' file; do
+    source_file="$repo/$file"
+    target_file="$HOME/$file"
+    if [[ "$(realpath -m "$source_file")" == "$(realpath -m "$target_file")" ]]; then
+        continue
+    fi
+    if [[ -e "$target_file" || -L "$target_file" ]]; then
+        printf 'Review existing file: %s\n' "$file"
+        continue
+    fi
+    mkdir -p "$(dirname "$target_file")"
+    ln -s "$source_file" "$target_file"
+done
+#+end_src
+
+Create directories used by capture shortcuts and the local Hyprland include.
+The include must exist before starting Hyprland.
+
+#+begin_src bash
+mkdir -p "$HOME/Desktop/"{screenshots,screencasts,llmshots}
+mkdir -p "$HOME/.config/hypr"
+touch "$HOME/.config/hypr/local.conf"
+chmod 600 "$HOME/.config/hypr/local.conf"
+#+end_src
+
+* Private machine settings
+
+** Location and time
+
+Both compositors start =gammastep= without coordinates in their command lines.
+It reads its location from the ignored file
+=${XDG_CONFIG_HOME:-$HOME/.config}/gammastep/config.ini=. Keep the existing
+machine's values there, outside tracked configuration and examples.
+
+For a new installation, this Bash snippet asks for coordinates without putting
+their values in shell command history. It keeps an existing file intact.
+
+#+begin_src bash
+(
+    umask 077
+    config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/gammastep"
+    mkdir -p "$config_dir"
+    if [[ -e "$config_dir/config.ini" ]]; then
+        printf 'Existing Gammastep configuration kept.\n'
+        exit 0
+    fi
+    read -r -p 'Latitude: ' latitude
+    read -r -p 'Longitude: ' longitude
+    printf '[general]\nlocation-provider=manual\n\n[manual]\nlat=%s\nlon=%s\n' \
+        "$latitude" "$longitude" > "$config_dir/config.ini"
+)
+#+end_src
+
+Use =man gammastep= for temperature and provider options. =gammastep -p= checks
+the settings without applying them, but its output includes the private location.
+Waybar uses the system timezone, so no regional identifier needs to be committed.
+
+** Network and Git identity
+
+Keep machine-specific Hyprland bindings, including network profile names, in
+=~/.config/hypr/local.conf=. The main configuration sources this ignored file.
+Store credentials using each application's own login/configuration flow.
+
+The repository uses a generic Git author identity. Set it locally in a fresh
+clone so a global personal identity is not copied into new commits:
+
+#+begin_src bash
+git config --local user.name 'Dotfiles User'
+git config --local user.email 'dotfiles@example.invalid'
+#+end_src
+
+That is a reserved example address. The setting affects future commits;
+changing it alone does not remove identities from old history.
+
+* Shell and terminal
+
+** Zsh, plugins and runtimes
+
+[[file:.zshrc][.zshrc]] loads Oh My Zsh from =$HOME/.oh-my-zsh= and Powerlevel10k from
+the system theme directory, with prompt settings in =~/.p10k.zsh=. Enabled
+plugins are =git=, =zsh-autosuggestions=, =zsh-syntax-highlighting=, =fzf=,
+=thefuck=, =web-search=, =copypath=, =copyfile=, =copybuffer= and =dirhistory=.
+Install third-party plugins in the Oh My Zsh custom plugins directory before
+adding them to =plugins=(...)=. See [[https://github.com/ohmyzsh/ohmyzsh][Oh My Zsh]] and
+[[https://github.com/romkatv/powerlevel10k][Powerlevel10k]] for setup details.
+
+NVM is initialized from =$NVM_DIR=, with an additional source at
+=~/.config/nvm/nvm.sh=; keep that path valid or adjust it for your installation.
+Bun uses =$HOME/.bun=. Android SDK and SDKMAN initialization examples are
+commented out. Ruby's gem bin directory and a local Conda installation are also
+referenced. The shell starts Hyprland on tty1 when there is no display; review
+that block when choosing Sway instead.
+
+| Alias/helper | Behavior |
+|--------------+----------|
+| =po= / =pu= / =pr= | Install, update, or remove packages with pacman |
+| =e= / =em= / =E= | Terminal Emacs, graphical Emacs client, Emacs-backed sudoedit |
+| =vim= / =n= | Neovim; open Alacritty in the current directory |
+| =cdd= / =cds= / =cde= | Fuzzy directory selection; =cde= opens an Emacs client |
+| =gc= / =gs= | Git clone and status |
+| =npd= / =npb= / =npt= / =npf= | npm development, build, test and format scripts |
+| =yr= / =ya= | Yarn run and add |
+| =ds= / =dh= | Docker start and stop |
+
+A standalone directory picker:
+
+#+begin_src bash
+cd_project() {
+    local directory
+    directory=$(fd --type d . "${1:-.}" | fzf --preview 'tree -C {}') || return
+    [[ -n "$directory" ]] && cd -- "$directory"
+}
+#+end_src
+
+** Alacritty and generated themes
+
+Edit =font.size=, =font.normal.family= and =window.opacity= in the TOML file.
+Alacritty supports =~/= in imports; use it rather than shell variables in TOML
+path strings. See the [[https://alacritty.org/config-alacritty.html][Alacritty configuration reference]].
+
+#+begin_src toml
+[general]
+import = ["~/.cache/wal/colors-alacritty.toml"]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
+#+end_src
+
+Other bindings use Alt+C/V for copy/paste and Alt+J/K for page scrolling.
+Generate colors with Pywal, for example:
+
+#+begin_src bash
+wal -i "$HOME/Pictures/wallpaper.jpg"
+#+end_src
+
+Sway, Hyprlock and Alacritty expect custom files named =colors-sway=,
+=colors-hyprland.conf= and =colors-alacritty.toml= under =~/.cache/wal/=.
+Their Pywal templates are local and not included here: restore those templates
+before using theme imports on a new machine. See [[https://github.com/dylanaraps/pywal/wiki/Getting-Started][Pywal setup]].
+
+* Desktop workflow
+
+** Sway and Hyprland
+
+Sway's =$mod= and Hyprland's =$mainMod= define the primary modifier. These are
+separate configurations; changing one does not update the other's bindings.
+
+| Sway shortcut | Action |
+|---------------+--------|
+| Mod+Return / Mod+Q | Terminal / close focused window |
+| Mod+D / Mod+O | Toggle Spotter / dmenu command launcher |
+| Mod+1…0 / Mod+Shift+1…0 | Switch workspace / move window |
+| Mod+R / Mod+F | Resize mode / fullscreen |
+| Mod+E / Mod+A | Emacs client / toggle dictation |
+| Mod+G / Mod+C | Screen annotation / color picker |
+| Mod+P / Mod+Shift+P | Save full-screen / selected-region screenshot |
+| Mod+I / Mod+S | Save and copy full-screen / selected-region screenshot |
+| Mod+W | Save a region screenshot and copy its path |
+| Mod+grave / Mod+Shift+grave | Full-screen / region recording toggle |
+| Mod+B / Mod+Shift+C | Change Waybar visibility / reload Sway |
+
+Hyprland uses nwg-drawer on Mod+D, Wofi on Mod+O, and launches Waybar,
+Hyprpaper, Mako and Clipse. Edit =hyprpaper.conf= for your monitor and wallpaper,
+and =hyprlock.conf= for the lock screen. These files use Hyprlang; check the
+documentation for your installed Hyprland version before copying newer examples.
+
+#+begin_src bash
+swaymsg reload                 # from a Sway session
+# hyprctl reload               # from a Hyprland session
+#+end_src
+
+SwayOSD handles volume, microphone mute, brightness and Caps Lock feedback.
+The Swayidle examples are currently commented out; choose and configure a locker
+before enabling them.
+
+** Waybar, notifications and media
+
+Arrange modules with =modules-left= and =modules-right= in =config.jsonc= and
+style them by ID in =style.css=. The dictation module uses:
+
+#+begin_src json
+{
+  "custom/dictate": {
+    "return-type": "json",
+    "interval": 1,
+    "exec": "\"$HOME/.local/bin/dictatectl\" waybar"
+  }
+}
+#+end_src
+
+The recording module checks for =wl-screenrec=. CPU and memory clicks open
+=btop=. The clock follows the system timezone; see the
+[[https://github.com/Alexays/Waybar/wiki/Module:-Clock][Waybar clock reference]].
+
+An optional [[file:.config/waybar/custom-modules/media-player.py][Playerctl helper]] provides media status. It needs Python
+GObject/Playerctl bindings; the media module is currently commented out.
+Choose Mako or Dunst as the notification daemon and edit its config; avoid
+starting both for the same notification service.
+
+#+begin_src bash
+makoctl reload
+notify-send 'Configuration test' 'Notifications are working'
+#+end_src
+
+The separate Mako theme-update script is included for reference; edit the main
+Mako config directly if you do not use that helper.
+
+** Spotter, dictation and capture
+
+Spotter's =index_dirs= are relative to your home directory. Set =include_hidden=,
+=index_depth=, =max_indexed_items= and the =[ui]= tables to control search and
+appearance. =spotter --toggle= shows or hides the launcher.
+
+Dictation uses the =small= model. Install its daemon and client separately from
+these dotfiles. Useful client commands:
+
+#+begin_src bash
+dictatectl status
+dictatectl toggle
+dictatectl stop
+dictatectl waybar
+#+end_src
+
+The recording script asks for a filename through dmenu, writes MP4 files under
+=~/Desktop/screencasts/=, and stops an existing recording on its next invocation.
+Full-screen recordings include audio; region recordings currently do not.
+
+#+begin_src bash
+"$HOME/.scripts/screen-recording.sh"
+# "$HOME/.scripts/screen-recording.sh" -g  # choose a region instead
+#+end_src
+
+A standalone region screenshot that saves the image and copies it:
+
+#+begin_src bash
+(
+    set -o pipefail
+    mkdir -p "$HOME/Desktop/screenshots"
+    geometry=$(slurp) || exit 1
+    screenshot="$HOME/Desktop/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+    grim -g "$geometry" - | tee "$screenshot" | wl-copy
+)
+#+end_src
+
+Gromit-MPX preferences control annotation opacity. =wl-color-picker= handles
+color selection. Clipse keeps clipboard history locally and is started by the
+Hyprland configuration.
+
+* Editors, files and development
+
+** Neovim, Zed and Emacs
+
+This AstroNvim configuration targets version 4 in =lua/lazy_setup.lua=.
+=lazy-lock.json= records plugin revisions. Start =nvim= after linking the config;
+bootstrap may download plugins. Many template files start with
+=if true then return {} end=: remove that guard only in files you intend to
+customize. =lua/polish.lua= has a similar early return.
+
+For example, save this as =~/.config/nvim/lua/plugins/editor-options.lua=:
+
+#+begin_src lua
+return {
+  "AstroNvim/astrocore",
+  opts = {
+    options = {
+      opt = { number = true, relativenumber = true, wrap = false },
+    },
+  },
+}
+#+end_src
+
+Use =:Lazy= for plugins and =:Mason= for language tools. Files in =lua/plugins/=
+cover LSP, Treesitter, formatting, completion and UI settings. The
+[[https://docs.astronvim.com/][AstroNvim documentation]] also follows newer releases; match examples to the
+version pinned here before upgrading.
+
+Zed has separate JSONC settings and keymaps. Fonts, theme and Vim mode belong
+in =settings.json=; bindings go in =keymap.json=. Saved assistant settings may
+require migration in newer releases; consult the
+[[https://zed.dev/docs/reference/all-settings][Zed settings reference]] when updating them. Keep provider login data local.
+
+Emacs configuration is ignored. Edit your existing init file under
+=~/.config/emacs/= (or =~/.emacs.d/= for an installation using that location).
+Desktop bindings use =emacsclient=, so start an Emacs server:
+
+#+begin_src bash
+emacs --daemon
+emacsclient -c
+emacsclient -t
+#+end_src
+
+Use either the existing Emacs user service or the manual daemon command,
+depending on how Emacs is installed.
+
+** lf, Zathura, sxiv and mpv
+
+lf uses Zsh for shell commands. Mappings open PDF/EPUB files in Zathura, images
+in sxiv, and files in an Emacs client. =.= toggles hidden files; =bz= and =br=
+invoke unzip and unrar. Install the corresponding viewers and archive tools.
+The [[https://github.com/gokcehan/lf/wiki/Tutorial][lf tutorial]] explains mappings and custom commands.
+
+#+begin_src conf
+# Examples for lfrc
+map epub &zathura "$f"
+map jpg &sxiv "$f"
+map e !emacsclient -t "$f"
+#+end_src
+
+Zathura and sxiv have no tracked standalone configuration here. Use their local
+config/preferences. mpv options live in =mpv.conf=; command-line flags can
+change behavior for one invocation:
+
+#+begin_src bash
+mpv --fullscreen --sub-auto=all "$HOME/Videos/example.mp4"
+#+end_src
+
+** Git, language tools and services
+
+GitHub CLI tracks preferences and the =co= alias for =pr checkout=. Authenticate
+with =gh auth login= on each machine; =hosts.yml= remains ignored. The global
+Git ignore file excludes local assistant settings; select it explicitly if your
+Git setup does not already use it:
+
+#+begin_src bash
+git config --global core.excludesFile "$HOME/.config/git/ignore"
+gh co 123
+#+end_src
+
+NVM/Node, npm, Yarn and Bun support web-development commands. Go, Python/uv,
+Ruby and Conda keep installations and project environments outside this repo.
+Use the Docker CLI or shell aliases for containers. Configure SDK paths for the
+versions you install; keep generated environments and authentication stores local.
+
+The PipeWire Pulse override supplies =LADSPA_PATH=. After editing the drop-in,
+reload user service definitions; restarting the service briefly interrupts audio:
+
+#+begin_src bash
+systemctl --user daemon-reload
+systemctl --user restart pipewire-pulse.service
+#+end_src
+
+Interception's dual-function-keys plugin uses [[file:.dual-function-keys.yaml][the tap/hold YAML file]].
+Examples include Enter tapped as Enter and held as Right Ctrl, and Shift tapped
+as Escape. Point the local Interception/udevmon pipeline at the file with
+=dual-function-keys -c "$HOME/.dual-function-keys.yaml"=. Device selection and
+the privileged input pipeline are system-specific; linking dotfiles does not
+install that service.
+
+* Other local applications
+
+The ignored profile directories also record the following applications. Their
+profiles can contain accounts, recent files, databases or browsing history.
+Configure them through their own settings or CLI; add only deliberately selected,
+sanitized preferences to this repository.
+
+| Applications | Configuration approach |
+|--------------+------------------------|
+| Firefox/Developer Edition, Chrome/Canary/testing, Chromium, qutebrowser | Browser settings, extensions and local profiles; keep history and sign-ins private |
+| Slack, Discord, ClickUp, Notion, schoolbook, HexChat | In-app accounts, notifications and startup settings |
+| Claude, Copilot, TabNine, Code OSS, JetBrains | Editor/app preferences and provider login; keep tokens and conversation state local |
+| Atlassian CLI, Shopify CLI, Expo/EAS | Each CLI's login and project configuration flow |
+| rclone, RustDesk, Outline Manager | Local remotes, peers or servers; keep credentials and keys ignored |
+| Audacity, Blender, Kdenlive/Meltytech, OBS Studio | Audio/video devices, project defaults and preferences; review exported profiles before sharing |
+| EasyEffects, noisetorch, pavucontrol | Local audio devices and effects; device-specific state stays local |
+| LibreOffice, Inkscape, Krita | Application preferences and document/project settings |
+| Spotify, VLC, cava, cavasik | Playback, visualization and local media settings |
+| ActivityWatch, pomodoro-logger, asciinema | Activity/recording preferences; recordings and histories are not dotfiles |
+| Postman, MongoDB Compass, Docker Desktop | Local workspaces, connections and runtime settings |
+| Android SDK/Studio components, NVM, uv, Go, Yarn | Installations, SDK paths and generated environment setup |
+| Wrangler, Turborepo, Next.js/create-next-app, Astro | Project-level CLI settings; generated telemetry/logs remain ignored |
+| btop, neofetch, glava, Fish, thefuck | Tool-specific appearance, environment or correction preferences |
+| Dolphin, KDE/Qt/GTK components, wallet/session services | Desktop settings and per-machine session state |
+| Minecraft launcher, Naev | Game/launcher preferences and local account data |
+| Deluge, uGet | Download settings, sessions and local transfer data |
+| Figma Linux, Electron-based applications | Application preferences and private browser-style profiles |
+
+* Review and validate changes
+
+Use =git status= and the staged diff before committing. Ignored directories and
+the private recovery directory =.local/= should stay out of shared archives as
+well as commits. Normal configuration changes do not need =git add -f=.
+
+#+begin_src bash
+zsh -n .zshrc
+bash -n .scripts/screen-recording.sh
+git diff --check
+git diff --cached --stat
+git diff --cached
+git check-ignore .config/gh/hosts.yml .config/gammastep/config.ini .config/hypr/local.conf
+#+end_src
+
+Validate compositor changes in the corresponding installed environment before
+reloading. =sway --validate --config .config/sway/config= needs a usable backend;
+for Hyprland, consult =hyprctl configerrors= in a running session. Validation
+output can include expanded local paths, so review it before sharing.
