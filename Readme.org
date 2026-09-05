@@ -129,16 +129,24 @@ Keep machine-specific Hyprland bindings, including network profile names, in
 =~/.config/hypr/local.conf=. The main configuration sources this ignored file.
 Store credentials using each application's own login/configuration flow.
 
-The repository uses a generic Git author identity. Set it locally in a fresh
-clone so a global personal identity is not copied into new commits:
+Use your actual Git display name with the GitHub-provided noreply address shown
+in GitHub Settings > Emails. This keeps commits attributed to your account
+without publishing your personal email. Configure it locally in each clone:
 
 #+begin_src bash
-git config --local user.name 'Dotfiles User'
-git config --local user.email 'dotfiles@example.invalid'
+read -r -p 'Commit display name: ' git_name
+read -r -p 'GitHub noreply address (Settings > Emails): ' git_email
+if [[ -n "$git_name" && "$git_email" == *@users.noreply.github.com ]]; then
+    git config --local user.name "$git_name"
+    git config --local user.email "$git_email"
+else
+    printf 'Enter a display name and a GitHub noreply address.\n' >&2
+fi
+unset git_name git_email
 #+end_src
 
-That is a reserved example address. The setting affects future commits;
-changing it alone does not remove identities from old history.
+These settings affect future commits; changing them alone does not update old
+history. See [[https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address][GitHub's commit email guide]] for account attribution and privacy.
 
 * Shell and terminal
 
